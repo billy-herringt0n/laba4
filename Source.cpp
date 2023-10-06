@@ -9,7 +9,7 @@ typedef struct Node {
     struct Node* left;
     struct Node* right;
 } Node;
-
+int p = 0;
 // Функция для создания нового узла
 Node* createNode(int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
@@ -44,9 +44,11 @@ Node* search(Node* root, int data) {
         return root;
     }
     else if (data < root->data) {
+        p++;
         return search(root->left, data);
     }
     else {
+        p++;
         return search(root->right, data);
     }
 }
@@ -71,7 +73,7 @@ void print_tree(Node* root, int l)
     print_tree(root->right, l + 1);
     for (int i = 0; i < l; i++)
     {
-        printf(" ");
+        printf("\t");
     }
 
     printf("%d\n", root->data);
@@ -129,6 +131,8 @@ void main() {
             }
             occurrences = countOccurrences(root, searchData);
             printf("Число %d встречается %d раз(а) в дереве\n", searchData, occurrences);
+            printf("Искомый элемент находится на %d уровне\n", p);
+            p = 0;
             break;
         case 4:
             system("cls");
@@ -139,5 +143,5 @@ void main() {
             printf("Некоректный выбор!\n");
             break;
         }
-    } while (choice != 4);  
+    } while (choice != 4);
 }
